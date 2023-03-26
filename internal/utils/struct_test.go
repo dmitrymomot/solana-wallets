@@ -4,7 +4,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/dmitrymomot/go-api-server/internal/utils"
+	"github.com/dmitrymomot/solana-wallets/internal/utils"
 	"github.com/stretchr/testify/require"
 )
 

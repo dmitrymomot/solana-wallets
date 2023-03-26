@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dmitrymomot/go-api-server/internal/validator"
+	"github.com/dmitrymomot/solana-wallets/internal/validator"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-kit/kit/auth/jwt"
 	httptransport "github.com/go-kit/kit/transport/http"

@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/dmitrymomot/go-api-server/internal/httpencoder"
+	"github.com/dmitrymomot/solana-wallets/internal/httpencoder"
 	"github.com/go-chi/chi/v5"
 	jwtkit "github.com/go-kit/kit/auth/jwt"
 	"github.com/go-kit/kit/transport"

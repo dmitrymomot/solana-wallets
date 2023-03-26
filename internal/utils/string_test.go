@@ -3,7 +3,7 @@ package utils_test
 import (
 	"testing"
 
-	"github.com/dmitrymomot/go-api-server/internal/utils"
+	"github.com/dmitrymomot/solana-wallets/internal/utils"
 )
 
 func TestTrimStringBetween(t *testing.T) {

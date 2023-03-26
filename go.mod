@@ -1,4 +1,4 @@
-module github.com/dmitrymomot/go-api-server
+module github.com/dmitrymomot/solana-wallets
 
 go 1.20
 

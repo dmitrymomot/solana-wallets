@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/dmitrymomot/go-api-server/internal/utils"
+	"github.com/dmitrymomot/solana-wallets/internal/utils"
 )
 
 const (

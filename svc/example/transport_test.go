@@ -9,7 +9,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/dmitrymomot/go-api-server/svc/example"
+	"github.com/dmitrymomot/solana-wallets/svc/example"
 	kitlog "github.com/go-kit/log"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"

@@ -3,7 +3,7 @@ package validator
 import (
 	"fmt"
 
-	"github.com/dmitrymomot/go-api-server/internal/utils"
+	"github.com/dmitrymomot/solana-wallets/internal/utils"
 	"github.com/gookit/validate"
 	"github.com/pkg/errors"
 )

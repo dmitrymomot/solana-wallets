@@ -3,7 +3,6 @@ package main
 import (
 	"database/sql"
 
-	"github.com/hibiken/asynq"
 	_ "github.com/lib/pq" // init pg driver
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
@@ -33,30 +32,6 @@ func main() {
 	if err := db.Ping(); err != nil {
 		logger.WithError(err).Fatal("Failed to ping db")
 	}
-
-	// Redis connect options for asynq client
-	redisConnOpt, err := asynq.ParseRedisURI(redisConnString)
-	if err != nil {
-		logger.WithError(err).Fatal("failed to parse redis connection string")
-	}
-
-	// Init asynq client
-	asynqClient := asynq.NewClient(redisConnOpt)
-	defer asynqClient.Close()
-
-	// Run asynq worker
-	eg.Go(runQueueServer(
-		redisConnOpt,
-		logger.WithField("component", "queue-worker"),
-		// TODO: add workers
-	))
-
-	// Run asynq scheduler
-	eg.Go(runScheduler(
-		redisConnOpt,
-		logger.WithField("component", "scheduler"),
-		// TODO: add schedulers
-	))
 
 	// Init HTTP router
 	r := initRouter(logger.WithField("component", "http-router"))

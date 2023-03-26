@@ -34,14 +34,7 @@ var (
 	dbMaxOpenConns = env.GetInt("DATABASE_MAX_OPEN_CONNS", 20)
 	dbMaxIdleConns = env.GetInt("DATABASE_IDLE_CONNS", 2)
 
-	// Redis
-	redisConnString = env.GetString("REDIS_URL", "redis://localhost:6379/0")
-
-	// Worker
-	workerConcurrency     = env.GetInt("WORKER_CONCURRENCY", 10)
-	workerShutdownTimeout = env.GetDuration("WORKER_SHUTDOWN_TIMEOUT", time.Second*5)
-	workerLogLevel        = env.GetString("WORKER_LOG_LEVEL", "info")
-	queueName             = env.GetString("QUEUE_NAME", "default")
-	queueTaskDeadline     = env.GetDuration("QUEUE_TASK_DEADLINE", time.Minute)
-	queueMaxRetry         = env.GetInt("QUEUE_TASK_RETRY_LIMIT", 3)
+	// Solana
+	solanaRPCURL     = env.MustString("SOLANA_RPC_URL")
+	walletSecretSalt = env.MustString("WALLET_SECRET_SALT")
 )

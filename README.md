@@ -7,9 +7,15 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/dmitrymomot/solana-wallets.svg)](https://pkg.go.dev/github.com/dmitrymomot/solana-wallets)
 [![License](https://img.shields.io/github/license/dmitrymomot/solana-wallets)](https://github.com/dmitrymomot/solana-wallets/blob/main/LICENSE)
 
-API server template based on [Golang](https://go.dev), [go-chi](https://go-chi.io/) and [go-kit](https://gokit.io).
+Solana wallets API server. It provides a simple REST API for managing Solana wallets, signing transactions and sending them to the Solana network without exposing private keys.
 
 ## Features
 
-*comming soon*
+- [ ] Create new wallet mnemonic phrase and encrypt it with a PIN code
+- [ ] Restore wallet from mnemonic phrase and encrypt it with a PIN code
+- [ ] Get wallet address
+- [ ] Sign transaction and send it to the Solana network
+- [ ] Get wallet balance
+- [ ] Get wallet NFTs
+
 

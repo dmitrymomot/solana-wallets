@@ -1,24 +1,24 @@
-package solana_client_test
+package solana_wallet_test
 
 import (
 	"fmt"
 	"testing"
 
 	"github.com/dmitrymomot/random"
-	"github.com/dmitrymomot/solana-wallets/internal/solana_client"
+	"github.com/dmitrymomot/solana-wallets/internal/solana_wallet"
 	"github.com/stretchr/testify/require"
 )
 
 func TestEncryptAndDecryptMnemonic(t *testing.T) {
 	pin := "123456"
-	mnemonic, err := solana_client.NewMnemonic(solana_client.MnemonicLength12)
+	mnemonic, err := solana_wallet.NewMnemonic(solana_wallet.MnemonicLength12)
 	require.NoError(t, err)
 	require.NotEmpty(t, mnemonic)
 
 	fmt.Println("mnemonic:", mnemonic)
 
 	salt := random.String(20)
-	client := solana_client.NewClient(salt)
+	client := solana_wallet.NewClient(salt)
 
 	encrypted, err := client.EnctyptMnemonic(mnemonic, pin)
 	require.NoError(t, err)
@@ -39,7 +39,7 @@ func TestEncryptAndDecryptMnemonic(t *testing.T) {
 	})
 
 	t.Run("decrypt with incorrect salt", func(t *testing.T) {
-		_, err := solana_client.NewClient(random.String(32)).DecryptMnemonic(encrypted, pin)
+		_, err := solana_wallet.NewClient(random.String(32)).DecryptMnemonic(encrypted, pin)
 		require.Error(t, err)
 	})
 }

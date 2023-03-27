@@ -1,4 +1,4 @@
-package solana_wallet
+package solanawallet
 
 import (
 	"crypto/aes"

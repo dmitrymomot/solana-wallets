@@ -1,4 +1,4 @@
-package solana_wallet
+package solanawallet
 
 import (
 	"fmt"
@@ -10,8 +10,8 @@ import (
 
 // Predefined mnemonic lengths
 const (
-	MnemonicLength12 MnemonicLength = 128 // 128 bits of entropy
-	MnemonicLength24 MnemonicLength = 256 // 256 bits of entropy
+	MnemonicLength12 MnemonicLength = 128 // 128 bits of entropy, 12 words
+	MnemonicLength24 MnemonicLength = 256 // 256 bits of entropy, 24 words
 )
 
 // Mnemonic length type

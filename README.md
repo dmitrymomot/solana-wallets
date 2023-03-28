@@ -11,11 +11,12 @@ Solana wallets API server. It provides a simple REST API for managing Solana wal
 
 ## Features
 
-- [ ] Create new wallet mnemonic phrase and encrypt it with a PIN code
-- [ ] Restore wallet from mnemonic phrase and encrypt it with a PIN code
-- [ ] Get wallet address
-- [ ] Sign transaction and send it to the Solana network
-- [ ] Get wallet balance
-- [ ] Get wallet NFTs
+- [x] Create new wallet mnemonic phrase and encrypt it with a PIN code.
+- [x] Restore wallet from mnemonic phrase and encrypt it with a PIN code.
+- [x] Get wallet address by user ID.
+- [x] Sign transaction and send it to the Solana network.
+- [x] Get wallet balance.
+- [x] Get wallet NFTs.
+- [x] Get wallet semi-fungible tokens (assets).
 
 

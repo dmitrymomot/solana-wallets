@@ -95,8 +95,8 @@ github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f/go.mod h1:cu
 github.com/dgryski/go-sip13 v0.0.0-20181026042036-e10d5fee7954/go.mod h1:vAd38F8PWV+bWy6jNmig1y/TA+kYO4g3RSRF0IAv0no=
 github.com/dmitrymomot/go-env v1.0.2 h1:lTqpscGNU5Bgx98JmTgz3R3fYghQzOT0NhqU6j4yuhY=
 github.com/dmitrymomot/go-env v1.0.2/go.mod h1:Xc3/tGc5j+0ggXOy+aWNSayu8LGDcFc+Ueu+btpao2Y=
-github.com/dmitrymomot/oauth2-server v0.1.1-rc h1:rMkEK+84m5RlFs8PzagFQD6E29upg3Mj5/UNvB6+kxs=
-github.com/dmitrymomot/oauth2-server v0.1.1-rc/go.mod h1:kfuPIZma+BbMoAoY+rVb86o9r65DCQ4X0dCn7JofC4s=
+github.com/dmitrymomot/oauth2-server v0.1.4 h1:f+s7rsuV8wLKWOrUyYMKJvsZ8rXzRkhRI1AiA4eq/FE=
+github.com/dmitrymomot/oauth2-server v0.1.4/go.mod h1:kfuPIZma+BbMoAoY+rVb86o9r65DCQ4X0dCn7JofC4s=
 github.com/dmitrymomot/random v1.0.6 h1:C9FoNBlSS9t3KD3CzVuG9HvgR5/KJ1XOMENWEI/WXz0=
 github.com/dmitrymomot/random v1.0.6/go.mod h1:7J6vVk7h9UIip/I8rZG6MEfiNgqwKTzQ0MQoh8YdAsg=
 github.com/dmitrymomot/solana v0.1.2-alpha h1:7KDYzTMBemLFKjHrV8W4Naw5x0d2qUx6TIGTVBsZS0g=

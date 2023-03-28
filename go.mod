@@ -5,7 +5,7 @@ go 1.20
 require (
 	filippo.io/edwards25519 v1.0.0
 	github.com/dmitrymomot/go-env v1.0.2
-	github.com/dmitrymomot/oauth2-server v0.1.1-rc
+	github.com/dmitrymomot/oauth2-server v0.1.4
 	github.com/dmitrymomot/random v1.0.6
 	github.com/dmitrymomot/solana v0.1.2-alpha
 	github.com/fatih/color v1.15.0

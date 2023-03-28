@@ -37,4 +37,7 @@ var (
 	// Solana
 	solanaRPCURL     = env.MustString("SOLANA_RPC_URL")
 	walletSecretSalt = env.MustString("WALLET_SECRET_SALT")
+
+	// OAuth2
+	oauth2IntrospectURL = env.MustString("OAUTH2_INTROSPECT_URL")
 )

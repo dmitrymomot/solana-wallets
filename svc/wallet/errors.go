@@ -8,4 +8,5 @@ var (
 	ErrNotFound         = errors.New("not found")
 	ErrInvalidPIN       = errors.New("invalid pin code")
 	ErrForbidden        = errors.New("forbidden")
+	ErrUnauthorized     = errors.New("unauthorized")
 )

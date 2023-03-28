@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/dmitrymomot/oauth2-server/lib/middleware"
 	"github.com/dmitrymomot/solana-wallets/internal/httpencoder"
 	"github.com/go-chi/chi/v5"
 	jwtkit "github.com/go-kit/kit/auth/jwt"
@@ -109,13 +108,14 @@ func codeAndMessageFrom(err error) (int, interface{}) {
 	if errors.Is(err, ErrInvalidParameter) || errors.Is(err, ErrInvalidPIN) {
 		return http.StatusBadRequest, err.Error()
 	}
-
 	if errors.Is(err, ErrNotFound) {
 		return http.StatusNotFound, err.Error()
 	}
-
 	if errors.Is(err, ErrForbidden) {
 		return http.StatusForbidden, err.Error()
+	}
+	if errors.Is(err, ErrUnauthorized) {
+		return http.StatusUnauthorized, err.Error()
 	}
 
 	return httpencoder.CodeAndMessageFrom(err)
@@ -126,17 +126,10 @@ func decodeEmptyRequest(ctx context.Context, r *http.Request) (interface{}, erro
 }
 
 func decodeStoreWalletRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req StoreWalletRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
-
-	req.UserID = tokenInfo.UserID
 
 	return req, nil
 }
@@ -151,113 +144,64 @@ func decodeGetWalletRequest(ctx context.Context, r *http.Request) (interface{}, 
 }
 
 func decodeDeleteWalletRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req DeleteWalletRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeUpdateWalletNameRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req UpdateWalletNameRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeChangeWalletPinRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req ChangeWalletPinRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeExportWalletRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req ExportWalletRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeSignTransactionRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req SignTransactionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeSignMessageRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req SignMessageRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
 
-	req.UserID = tokenInfo.UserID
-
 	return req, nil
 }
 
 func decodeSignAndSendTransactionRequest(ctx context.Context, r *http.Request) (interface{}, error) {
-	tokenInfo, ok := middleware.GetTokenInfoFromContext(ctx)
-	if !ok || tokenInfo.UserID == "" {
-		return nil, ErrForbidden
-	}
-
 	var req SignAndSendTransactionRequest
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
 		return nil, fmt.Errorf("failed to decode request: %w", err)
 	}
-
-	req.UserID = tokenInfo.UserID
 
 	return req, nil
 }

@@ -17,15 +17,23 @@ type (
 		cache *cache.Cache
 		ttl   time.Duration
 	}
+
+	// Option is a function that configures the SolanaClientCacheWrapper
+	Option func(*SolanaClientCacheWrapper)
 )
 
 // NewSolanaClientCacheWrapper creates a new instance of SolanaClientCacheWrapper
-func NewSolanaClientCacheWrapper(c *client.Client, cache *cache.Cache, ttl time.Duration) *SolanaClientCacheWrapper {
-	return &SolanaClientCacheWrapper{
+func NewSolanaClientCacheWrapper(c *client.Client, opts ...Option) *SolanaClientCacheWrapper {
+	wrapper := &SolanaClientCacheWrapper{
 		Client: c,
-		cache:  cache,
-		ttl:    ttl,
+		ttl:    time.Hour,
 	}
+
+	for _, opt := range opts {
+		opt(wrapper)
+	}
+
+	return wrapper
 }
 
 // GetTokenMetadata returns token metadata.

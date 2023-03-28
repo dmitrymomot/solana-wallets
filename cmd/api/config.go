@@ -34,9 +34,14 @@ var (
 	dbMaxOpenConns = env.GetInt("DATABASE_MAX_OPEN_CONNS", 20)
 	dbMaxIdleConns = env.GetInt("DATABASE_IDLE_CONNS", 2)
 
+	// Redis
+	redisConnURL  = env.MustString("REDIS_URL")
+	redisPoolSize = env.GetInt("REDIS_POOL_SIZE", 10)
+
 	// Solana
-	solanaRPCURL     = env.MustString("SOLANA_RPC_URL")
-	walletSecretSalt = env.MustString("WALLET_SECRET_SALT")
+	solanaRPCURL          = env.MustString("SOLANA_RPC_URL")
+	walletSecretSalt      = env.MustString("WALLET_SECRET_SALT")
+	tokenMetadataCacheTTL = env.GetDuration("TOKEN_METADATA_CACHE_TTL", time.Hour)
 
 	// OAuth2
 	oauth2IntrospectURL = env.MustString("OAUTH2_INTROSPECT_URL")

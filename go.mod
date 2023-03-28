@@ -13,6 +13,7 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/go-kit/kit v0.12.0
 	github.com/go-redis/cache/v8 v8.4.4
+	github.com/go-redis/redis/v8 v8.11.5
 	github.com/google/go-querystring v1.1.0
 	github.com/gookit/validate v1.4.6
 	github.com/joho/godotenv v1.5.1
@@ -39,7 +40,6 @@ require (
 	github.com/go-kit/log v0.2.1 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-oauth2/oauth2/v4 v4.5.2 // indirect
-	github.com/go-redis/redis/v8 v8.11.5 // indirect
 	github.com/golang-jwt/jwt/v4 v4.0.0 // indirect
 	github.com/golang-jwt/jwt/v5 v5.0.0-rc.1 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect

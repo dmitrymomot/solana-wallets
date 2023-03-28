@@ -2,15 +2,19 @@ package main
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/dmitrymomot/oauth2-server/lib/client"
 	"github.com/dmitrymomot/oauth2-server/lib/middleware"
 	"github.com/dmitrymomot/solana-wallets/internal/kitlog"
+	"github.com/dmitrymomot/solana-wallets/internal/solanacache"
 	"github.com/dmitrymomot/solana-wallets/internal/solanawallet"
 	"github.com/dmitrymomot/solana-wallets/svc/balance"
 	"github.com/dmitrymomot/solana-wallets/svc/wallet"
 	wallet_repository "github.com/dmitrymomot/solana-wallets/svc/wallet/repository"
 	solanaClient "github.com/dmitrymomot/solana/client"
+	"github.com/go-redis/cache/v8"
+	"github.com/go-redis/redis/v8"
 	_ "github.com/lib/pq" // init pg driver
 	"github.com/sirupsen/logrus"
 	"golang.org/x/sync/errgroup"
@@ -68,9 +72,23 @@ func main() {
 
 	// Init balance service
 	{
+		redisOpt, err := redis.ParseURL(redisConnURL)
+		if err != nil {
+			logger.WithError(err).Fatal("Failed to parse redis connection url")
+		}
+		cacheClient := cache.New(&cache.Options{
+			Redis:      redis.NewClient(redisOpt),
+			LocalCache: cache.NewTinyLFU(1000, time.Minute),
+		})
+		solClientWithCache := solanacache.NewSolanaClientCacheWrapper(
+			solClient,
+			solanacache.WithCacheTTL(tokenMetadataCacheTTL),
+			solanacache.WithCacheClient(cacheClient),
+		)
+
 		r.Mount("/balance", balance.MakeHTTPHandler(
 			balance.MakeEndpoints(
-				balance.NewService(solClient),
+				balance.NewService(solClientWithCache),
 				oauth2Mdw,
 			),
 			kitlog.NewLogger(logger.WithField("component", "balance-service")),

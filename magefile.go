@@ -4,7 +4,6 @@
 package main
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/fatih/color"
@@ -12,29 +11,13 @@ import (
 	"github.com/magefile/mage/sh"
 )
 
-// Prepare migrations
-func PrepareMigrations() error {
-	color.Cyan("Preparing migrations...")
-
-	color.Yellow("Clean migrations directory...")
-	if err := sh.RunV("rm", "-Rvf", "migrations/*.sql"); err != nil {
-		return fmt.Errorf("failed to remove migrations: %w", err)
-	}
-
-	color.Yellow("Copy migrations...")
-	if err := sh.RunV("cp", "-Rvf", "./svc/**/repository/sql/migrations/*.sql", "migrations/"); err != nil {
-		color.Red("Failed to copy migrations! Error: %s", err.Error())
-	}
-
-	color.Yellow("Finished preparing migrations!")
-	return nil
-}
-
 // Migrate database.
 func Migrate() error {
-	if err := PrepareMigrations(); err != nil {
+	color.Cyan("Preparing migrations...")
+	if err := sh.RunV("make", "prepare-migrations"); err != nil {
 		return err
 	}
+	color.Yellow("Migrations copied to migrations directory.")
 
 	color.Cyan("Migrating database...")
 	return sh.RunV("go", "run", "./cmd/migrate/")

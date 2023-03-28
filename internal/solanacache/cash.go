@@ -41,7 +41,7 @@ func NewSolanaClientCacheWrapper(c *client.Client, opts ...Option) *SolanaClient
 func (c *SolanaClientCacheWrapper) GetTokenMetadata(ctx context.Context, base58MintAddr string) (*token_metadata.Metadata, error) {
 	var result token_metadata.Metadata
 	if c.cache.Exists(ctx, base58MintAddr) {
-		if err := c.cache.Get(ctx, base58MintAddr, &result); err == nil {
+		if err := c.cache.Get(ctx, base58MintAddr, &result); err == nil && result.Mint != "" {
 			return &result, nil
 		}
 	}

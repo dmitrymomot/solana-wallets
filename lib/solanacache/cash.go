@@ -3,6 +3,7 @@ package solanacache
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/dmitrymomot/solana/client"
@@ -42,6 +43,7 @@ func (c *SolanaClientCacheWrapper) GetTokenMetadata(ctx context.Context, base58M
 	var result token_metadata.Metadata
 	if c.cache.Exists(ctx, base58MintAddr) {
 		if err := c.cache.Get(ctx, base58MintAddr, &result); err == nil && result.Mint != "" {
+			log.Printf("cache hit for %s", base58MintAddr)
 			return &result, nil
 		}
 	}

@@ -46,3 +46,10 @@ func WithRedisConnectionURL(redisConnURL string) Option {
 		c.cache = cacheClient
 	}
 }
+
+// WithLogger sets the logger
+func WithLogger(log logger) Option {
+	return func(c *SolanaClientCacheWrapper) {
+		c.log = log
+	}
+}

@@ -3,7 +3,6 @@ package solanacache
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
 	"github.com/dmitrymomot/solana/client"
@@ -17,10 +16,18 @@ type (
 		*client.Client
 		cache *cache.Cache
 		ttl   time.Duration
+		log   logger
 	}
 
 	// Option is a function that configures the SolanaClientCacheWrapper
 	Option func(*SolanaClientCacheWrapper)
+
+	// logger is a logger interface
+	logger interface {
+		Printf(format string, v ...interface{})
+		Debugf(format string, v ...interface{})
+		Errorf(format string, v ...interface{})
+	}
 )
 
 // NewSolanaClientCacheWrapper creates a new instance of SolanaClientCacheWrapper
@@ -42,8 +49,9 @@ func NewSolanaClientCacheWrapper(c *client.Client, opts ...Option) *SolanaClient
 func (c *SolanaClientCacheWrapper) GetTokenMetadata(ctx context.Context, base58MintAddr string) (*token_metadata.Metadata, error) {
 	var result token_metadata.Metadata
 	if c.cache.Exists(ctx, base58MintAddr) {
+		c.log.Debugf("cache exists for %s", base58MintAddr)
 		if err := c.cache.Get(ctx, base58MintAddr, &result); err == nil && result.Mint != "" {
-			log.Printf("cache hit for %s", base58MintAddr)
+			c.log.Debugf("cache hit for %s: metadta: %+v", base58MintAddr, result)
 			return &result, nil
 		}
 	}
@@ -54,16 +62,19 @@ func (c *SolanaClientCacheWrapper) GetTokenMetadata(ctx context.Context, base58M
 	}
 
 	if metadata == nil {
+		c.log.Errorf("token metadata is nil for %s", base58MintAddr)
 		return nil, fmt.Errorf("token metadata is nil")
 	}
 
 	// cache the result, ignore error, bc it is not critical
-	c.cache.Set(&cache.Item{
+	if err := c.cache.Set(&cache.Item{
 		Ctx:   ctx,
 		Key:   base58MintAddr,
 		Value: metadata,
 		TTL:   c.ttl,
-	})
+	}); err != nil {
+		c.log.Errorf("failed to cache token metadata for %s: %s", base58MintAddr, err.Error())
+	}
 
 	return metadata, nil
 }
